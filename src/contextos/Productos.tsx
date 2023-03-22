@@ -9,6 +9,7 @@ type Producto = {
   descripcion: string;
   precio: number;
   descuento?: number;
+  foto?: string;
 };
 const TiendaContext = createContext<Productos>({ productos: [], setProductos: () => {} });
 export const useTiendaContext = () => useContext(TiendaContext);

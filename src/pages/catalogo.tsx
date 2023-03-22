@@ -1,5 +1,7 @@
 import { Button } from "react-bootstrap";
-import { useTiendaContext } from "../contextos/Productos";
+import { useTiendaContext } from "src/contextos/Productos";
+import cerezas from "src/assets/cerezas.png";
+import manzana from "src/assets/manzana.jpeg";
 
 export default function Catalogo() {
   const { productos, setProductos } = useTiendaContext();
@@ -10,16 +12,18 @@ export default function Catalogo() {
           setProductos([
             {
               id: 3,
-              nombre: "Raton",
+              nombre: "Cerezas",
               descripcion: "No es de ordenador",
               precio: 3,
               descuento: 10,
+              foto: cerezas
             },
             {
               id: 4,
-              nombre: "Teclado",
+              nombre: "Manzana",
               descripcion: "Es para musica",
               precio: 500,
+              foto: manzana
             },
           ])
         } >anadir</Button>
@@ -31,6 +35,7 @@ export default function Catalogo() {
           <h5>{p.descripcion}</h5>
           <h5>{p.precio}$</h5>
           <h5>{p.descuento}%</h5>
+          <img src={p.foto} alt="foto" />
         </>
       ))}
     </>

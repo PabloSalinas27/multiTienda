@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 export default function Login() {
   const { admin, setAdmin } = useSesionContext();
   const [message, setMessage] = useState(null);
-  const url = import.meta.env.VITE_BASE_URL + '/login.php';
+  const url = import.meta.env.LOGIN_BASE_URL;
   const onSubmit = (ev: any) => {
     console.log(admin, url);
     ev.preventDefault();

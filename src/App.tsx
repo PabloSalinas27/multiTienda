@@ -1,3 +1,5 @@
+import { Container } from "react-bootstrap";
+import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import { CarritoContextProvider } from "./contextos/Carrito";
@@ -7,11 +9,14 @@ import router from "./router";
 function App() {
   return (
     <>
-      <TiendaContextProvider>
-        <CarritoContextProvider>
-          <RouterProvider router={router}></RouterProvider>
-        </CarritoContextProvider>
-      </TiendaContextProvider>
+      <Container style={{ minHeight: "700px" }}>
+        <TiendaContextProvider>
+          <CarritoContextProvider>
+            <RouterProvider router={router}></RouterProvider>
+            <Toaster></Toaster>
+          </CarritoContextProvider>
+        </TiendaContextProvider>
+      </Container>
     </>
   );
 }

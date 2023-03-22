@@ -1,5 +1,5 @@
 import { useTiendaContext } from "../contextos/Productos";
-import { Button } from "react-bootstrap";
+import Container  from "react-bootstrap/Container";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -7,10 +7,10 @@ import Footer from "./Footer";
 export default function Marco() {
   return (
     <>
-    <Header/>
-      <>Componente</>
-      <Outlet/>
-    <Footer/>
+      <Header />
+      <Container style={{height: '100%'}}>Componentea</Container>
+      <Outlet />
+      <Footer />
     </>
   );
 }
