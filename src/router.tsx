@@ -5,7 +5,7 @@ import { FiltroContextProvider } from "./contextos/Filtro";
 import { TiendaContextProvider } from "./contextos/Productos";
 import Catalogo from "./pages/catalogo";
 import Login from "./pages/login";
-import Pedidos from "./pages/pedidos";
+import Carrito from "./pages/carrito";
 // import Admin from "./pages/admin";
 // import Cars from "./pages/cars";
 // import DefaultLayout from "./pages/defaultLayout";
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/pedidos",
-            element: <Pedidos/>,
+            element: <Carrito/>,
           },
           //   {
           //     path: "/admin",

@@ -4,7 +4,7 @@ import { useCarritoContext } from "src/contextos/Carrito";
 import { useFiltroContext } from "src/contextos/Filtro";
 import { useTiendaContext } from "src/contextos/Productos";
 
-export default function Pedidos() {
+export default function Carrito() {
   const { productosSeleccionados } = useCarritoContext();
   const { productos } = useTiendaContext();
   const { filtro } = useFiltroContext();
