@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { CarritoContext } from "../contextos/Carrito";
+import { useCarritoContext } from "../contextos/Carrito";
 import { useTiendaContext } from "../contextos/Productos";
 
 export default function Footer() {
-    const { productosSeleccionados } = useContext(CarritoContext);
+    const { productosSeleccionados } = useCarritoContext();
     const { productos } = useTiendaContext();
     const total = productosSeleccionados.reduce(
         (acumulado, producto) =>
@@ -13,8 +12,8 @@ export default function Footer() {
     return (
         <footer>
             <h2>Footer</h2>
-            <a>Productos: {productos.length}</a>
-            <a>Productos seleccionados: {productosSeleccionados.length}</a>
+            <a>Productos: {Object.keys(productos).length}</a>
+            <a>Productos seleccionados: { productosSeleccionados.length}</a>
             <a>Total: {total}</a>
         </footer>
     );

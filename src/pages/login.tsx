@@ -1,16 +1,23 @@
 import { useSesionContext } from "../contextos/Sesion";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import axios from "axios";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/esm/Button";
+import { Container, Row } from "react-bootstrap";
 
 export default function Login() {
   const { admin, setAdmin } = useSesionContext();
   const [message, setMessage] = useState(null);
   const url = import.meta.env.LOGIN_BASE_URL;
-  const onSubmit = (ev: any) => {
+  const onSubmit = async (ev: any) => {
     console.log(admin, url);
-    ev.preventDefault();
+    //ev.preventDefault();
     const form = ev.target;
     const formData = new FormData(form);
+    const res = await axios.get(url ,{ params: formData });
+    setAdmin(res.data);
+
     fetch(url, {
       method: "POST",
       headers: {
@@ -45,7 +52,9 @@ export default function Login() {
   return (
     <div className="flex justify-center items-center ">
       <div className="flex flex-col">
-        <form className="flex flex-col gap-5" method="post" onSubmit={onSubmit}>
+        <Form className="flex flex-col gap-5" method="post" onSubmit={onSubmit}>
+            <Row className="justify-content-md-center">
+          <Container style={{maxWidth: '30em'}} className="row">
           <h1 className="self-center">Inicio de sesion</h1>
 
           {message && (
@@ -54,10 +63,12 @@ export default function Login() {
             </div>
           )}
 
-          <input name="username" type="text" placeholder="Nombre de usuario" />
-          <input name="password" type="password" placeholder="Contraseña" />
-          <button className="bg-green-600">Iniciar sesión</button>
-        </form>
+          <input className="form-control me-2" name="username" type="text" placeholder="Nombre de usuario" />
+          <input className="form-control me-2" name="password" type="password" placeholder="Contraseña" />
+          <Button >Iniciar sesión</Button>
+          </Container>
+          </Row>
+        </Form>
       </div>
     </div>
   );

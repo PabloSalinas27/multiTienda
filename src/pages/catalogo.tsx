@@ -1,43 +1,21 @@
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useTiendaContext } from "src/contextos/Productos";
-import cerezas from "src/assets/cerezas.png";
-import manzana from "src/assets/manzana.jpeg";
+import { useCarritoContext } from "src/contextos/Carrito";
+import ProductoView from "src/Components/productoView";
+import { useFiltroContext } from "src/contextos/Filtro";
 
 export default function Catalogo() {
-  const { productos, setProductos } = useTiendaContext();
+  const { productos } = useTiendaContext();
+  const { filtro } = useFiltroContext();
   return (
-    <>
-      <Button 
-        onClick={() =>
-          setProductos([
-            {
-              id: 3,
-              nombre: "Cerezas",
-              descripcion: "No es de ordenador",
-              precio: 3,
-              descuento: 10,
-              foto: cerezas
-            },
-            {
-              id: 4,
-              nombre: "Manzana",
-              descripcion: "Es para musica",
-              precio: 500,
-              foto: manzana
-            },
-          ])
-        } >anadir</Button>
-
-      <Button onClick={() => setProductos([])}>quitar uno</Button>
-      {productos.map((p) => (
-        <>
-          <h5>{p.nombre}</h5>
-          <h5>{p.descripcion}</h5>
-          <h5>{p.precio}$</h5>
-          <h5>{p.descuento}%</h5>
-          <img src={p.foto} alt="foto" />
-        </>
-      ))}
-    </>
+    <Container className="row">
+      {Object.values(productos)
+        .filter((p) => p.nombre.toLowerCase().match(filtro.toLowerCase()))
+        .map((p) => (
+          <>
+            <ProductoView producto={p} key={p.id} />
+          </>
+        ))}
+    </Container>
   );
 }
