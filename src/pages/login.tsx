@@ -6,16 +6,18 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import { Container, Row } from "react-bootstrap";
 
+
+
 export default function Login() {
-  const { admin, setAdmin } = useSesionContext();
+  const { token, setToken } = useSesionContext();
   const [message, setMessage] = useState(null);
   const url = import.meta.env.LOGIN_BASE_URL;
   const onSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
-    console.log(admin, url);
+    console.log(token, url);
     //ev.preventDefault();
     const form = ev.target;
     const res = await axios.get(url ,{ params: form });
-    setAdmin(res.data);
+    setToken(res.data);
 
     fetch(url, {
       method: "POST",
@@ -28,16 +30,16 @@ export default function Login() {
       .then(async (response) => {
         if (response.ok) {
           const data = await response.json();
-          setAdmin(data.admin);
+          setToken(data.admin);
         } else if (response.status == 400) {
           toast.error("Introduzca correctamente usuario y contraseña");
-          setAdmin("sinSesion");
+          setToken();
         } else if (response.status == 401) {
           toast.error("Acceso denegado");
-          setAdmin("sinSesion");
+          setToken();
         } else {
           toast.error("Problema en el servidor");
-          setAdmin("sinSesion");
+          setToken();
         }
       })
       .catch((err) => {
