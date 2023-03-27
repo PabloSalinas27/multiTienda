@@ -1,3 +1,4 @@
+import  Button  from "react-bootstrap/Button";
 import { usePedidosContext } from "src/contextos/Pedidos";
 import { useTiendaContext } from "src/contextos/Productos";
 
@@ -5,6 +6,10 @@ import { useTiendaContext } from "src/contextos/Productos";
 export default function Pedidos(){
     const { pedidos, setPedidos } = usePedidosContext();
     const { productos } = useTiendaContext();
+    const handleBorrarPedido = (id: number) => {
+        const nuevosPedidos = pedidos.filter((p) => p.id !== id);
+        setPedidos(nuevosPedidos);
+    };
     const pedidoView = pedidos.map((p) => {
         return(
             <div>
@@ -19,6 +24,7 @@ export default function Pedidos(){
                     );
                 })
                 }
+                <Button onClick={() => handleBorrarPedido(p.id)}>Borrar Pedido</Button>
             </div>
         );
     });
