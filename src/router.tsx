@@ -8,6 +8,8 @@ import Login from "./pages/login";
 import Carrito from "./pages/carrito";
 import Pedidos from "./pages/pedidos";
 import { PedidosContextProvider } from "./contextos/Pedidos";
+import FormularioPedido from "./pages/formularioPedido";
+import Gracias from "./pages/gracias";
 // import Admin from "./pages/admin";
 // import Cars from "./pages/cars";
 // import DefaultLayout from "./pages/defaultLayout";
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
           {
             path: "/pedidos",
             element: <Pedidos />,
+          },
+          {
+            path: "/formularioPedido",
+            element: <FormularioPedido />,
+          },
+          {
+            path: "/gracias",
+            element: <Gracias/>,
           },
           //   {
           //     path: "/admin",

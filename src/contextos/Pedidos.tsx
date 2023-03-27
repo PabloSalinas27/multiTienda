@@ -4,6 +4,15 @@ export type Pedido = {
   id: number;
   fecha: string;
   productos: ProductoCarrito[];
+  datosReparto: DatosReparto
+};
+export type DatosReparto = {
+  nombre: string;
+  apellidos: string;
+  direccion: string;
+  ciudad: string;
+  codigoPostal: number;
+  correoElectronico: string;
 };
 export type Pedidos = {
   pedidos: Pedido[];

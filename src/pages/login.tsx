@@ -10,12 +10,11 @@ export default function Login() {
   const { admin, setAdmin } = useSesionContext();
   const [message, setMessage] = useState(null);
   const url = import.meta.env.LOGIN_BASE_URL;
-  const onSubmit = async (ev: any) => {
+  const onSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     console.log(admin, url);
     //ev.preventDefault();
     const form = ev.target;
-    const formData = new FormData(form);
-    const res = await axios.get(url ,{ params: formData });
+    const res = await axios.get(url ,{ params: form });
     setAdmin(res.data);
 
     fetch(url, {
@@ -24,7 +23,7 @@ export default function Login() {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: new URLSearchParams(JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))),
+      body: new URLSearchParams(JSON.parse(JSON.stringify(form))),
     })
       .then(async (response) => {
         if (response.ok) {
