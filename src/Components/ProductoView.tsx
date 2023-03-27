@@ -3,10 +3,11 @@ import { ProductoCarrito, useCarritoContext } from "src/contextos/Carrito";
 import { Producto } from "src/contextos/Productos";
 import manzana from "src/assets/manzana.jpeg";
 
-export default function ProductoView({ producto }: { producto: Producto }) {
+export default function ProductoView({ producto , props}: { producto: Producto , props: "alargado" | "tarjeta"}) {
   const { productosSeleccionados, setProductosSeleccionados } =
     useCarritoContext();
 
+  const al = props === "alargado";
   const prd = productosSeleccionados.find((p) => p.id === producto.id);
   let buttons;
   if (!prd || prd.cantidad < 1) {
@@ -48,8 +49,8 @@ export default function ProductoView({ producto }: { producto: Producto }) {
 
   return (
     <>
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={producto.foto || manzana} />
+      <Card style={al ? { width: '18rem' } : {width: '30rem'}}>
+        <Card.Img  variant="top" src={producto.foto || manzana} />
         <Card.Body>
           <Card.Title>{producto.nombre}</Card.Title>
           <Card.Text>{producto.descripcion}</Card.Text>

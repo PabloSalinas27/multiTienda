@@ -9,7 +9,7 @@ import router from "./router";
 function App() {
   return (
     <>
-      <Container style={{ minHeight: "700px" }}>
+      <Container style={{ minHeight: "100vh" }}>
             <RouterProvider router={router}></RouterProvider>
             <Toaster></Toaster>
       </Container>

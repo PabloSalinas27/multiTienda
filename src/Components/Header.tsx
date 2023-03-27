@@ -19,7 +19,8 @@ export default function Header() {
             <li className="nav-item dropdown">
               <Ul className="dropdown-menu">
                 <Link to="/catalogo"><li><a className="dropdown-item" href="#">Catalogo</a></li></Link>
-                <Link to="/pedidos"><li><a className="dropdown-item" href="#">Carrito</a></li></Link>
+                <Link to="/carrito"><li><a className="dropdown-item" href="#">Carrito</a></li></Link>
+                <Link to="/pedidos"><li><a className="dropdown-item" href="#">Pedidos</a></li></Link>
                 <Link to="/login"><li><a className="dropdown-item" href="#">Login/Logout</a></li></Link>
               </Ul>
             </li>

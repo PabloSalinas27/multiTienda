@@ -10,7 +10,7 @@ export default function Footer() {
         0
     );
     return (
-        <footer>
+        <footer className="bottom">
             <h2>Footer</h2>
             <a>Productos: {Object.keys(productos).length}</a>
             <a>Productos seleccionados: { productosSeleccionados.length}</a>

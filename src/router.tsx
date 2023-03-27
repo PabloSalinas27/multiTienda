@@ -6,6 +6,8 @@ import { TiendaContextProvider } from "./contextos/Productos";
 import Catalogo from "./pages/catalogo";
 import Login from "./pages/login";
 import Carrito from "./pages/carrito";
+import Pedidos from "./pages/pedidos";
+import { PedidosContextProvider } from "./contextos/Pedidos";
 // import Admin from "./pages/admin";
 // import Cars from "./pages/cars";
 // import DefaultLayout from "./pages/defaultLayout";
@@ -15,11 +17,13 @@ import Carrito from "./pages/carrito";
 const CtxProvider = () => {
   return (
     <TiendaContextProvider>
-      <CarritoContextProvider>
-        <FiltroContextProvider>
-          <Outlet />
-        </FiltroContextProvider>
-      </CarritoContextProvider>
+      <PedidosContextProvider>
+        <CarritoContextProvider>
+          <FiltroContextProvider>
+            <Outlet />
+          </FiltroContextProvider>
+        </CarritoContextProvider>
+      </PedidosContextProvider>
     </TiendaContextProvider>
   );
 };
@@ -41,11 +45,15 @@ const router = createBrowserRouter([
           },
           {
             path: "/login",
-            element: <Login/>,
+            element: <Login />,
+          },
+          {
+            path: "/carrito",
+            element: <Carrito />,
           },
           {
             path: "/pedidos",
-            element: <Carrito/>,
+            element: <Pedidos />,
           },
           //   {
           //     path: "/admin",
