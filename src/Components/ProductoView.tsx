@@ -32,8 +32,8 @@ export default function ProductoView({ producto , props}: { producto: Producto ,
             prd.cantidad--;
             setProductosSeleccionados([...productosSeleccionados.filter(p => p.cantidad > 0)]);
           }}
-        >Menos</Button>
-        <a >{prd.cantidad}</a>
+        >Menos </Button>
+        <a style={{margin: "2em"}}>{prd.cantidad} ud.</a>
         <Button
           variant="primary"
           onClick={() => {
@@ -54,6 +54,7 @@ export default function ProductoView({ producto , props}: { producto: Producto ,
         <Card.Body>
           <Card.Title>{producto.nombre}</Card.Title>
           <Card.Text>{producto.descripcion}</Card.Text>
+          <Card.Text>{producto.precio} €</Card.Text>
           {buttons}
         </Card.Body>
       </Card>

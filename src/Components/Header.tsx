@@ -18,10 +18,10 @@ export default function Header() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item dropdown">
               <Ul className="dropdown-menu">
-                <Link to="/catalogo"><li><a className="dropdown-item" href="#">Catalogo</a></li></Link>
-                <Link to="/carrito"><li><a className="dropdown-item" href="#">Carrito</a></li></Link>
-                <Link to="/pedidos"><li><a className="dropdown-item" href="#">Pedidos</a></li></Link>
-                <Link to="/login"><li><a className="dropdown-item" href="#">Login/Logout</a></li></Link>
+                <Link to="/catalogo"><li><div className="dropdown-item" >Catalogo</div></li></Link>
+                <Link to="/carrito"><li><div className="dropdown-item" >Carrito</div></li></Link>
+                <Link to="/pedidos"><li><div className="dropdown-item" >Pedidos</div></li></Link>
+                <Link to="/login"><li><div className="dropdown-item" >Login/Logout</div></li></Link>
               </Ul>
             </li>
           </ul>

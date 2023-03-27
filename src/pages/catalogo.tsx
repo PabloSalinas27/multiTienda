@@ -10,11 +10,10 @@ export default function Catalogo() {
   return (
     <Container className="row">
       {Object.values(productos)
-        .filter((p) => p.nombre.toLowerCase().match(filtro.toLowerCase()))
+        .filter(p => p)
+        .filter((p) => p?.nombre.toLowerCase().match(filtro.toLowerCase()))
         .map((p) => (
-          <>
             <ProductoView producto={p} key={p.id} props="tarjeta"/>
-          </>
         ))}
     </Container>
   );

@@ -1,9 +1,9 @@
-import { createContext, useContext, useState } from "react";
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 import cerezas from "src/assets/cerezas.png";
 import manzana from "src/assets/manzana.jpeg";
 
 type Productos = {
-  originales: {[k: number]: Producto};
   productos: {[k: number]: Producto};
   setProductos: (productos: {[k: number]: Producto}) => void;
 };
@@ -34,15 +34,18 @@ const mockProductos = {
 };
 const TiendaContext = createContext<Productos>({
   productos: [],
-  originales: [],
   setProductos: () => {},
 });
 export const useTiendaContext = () => useContext(TiendaContext);
-export const TiendaContextProvider = (props: any) => {
-  const [productos, setProductos] = useState<{[k: number]: Producto}>(mockProductos);
+export const TiendaContextProvider =  (props: any) => {
+  
+  const [productos, setProductos] = useState<{[k: number]: Producto}>({});
+  useEffect(() => {
+  axios.get("https://dsm23-b0103-default-rtdb.europe-west1.firebasedatabase.app/catalogo.json")
+    .then((response) =>  setProductos(response.data))}, [])
   return (
     <TiendaContext.Provider
-      value={{ originales: mockProductos, productos, setProductos }}
+      value={{ productos, setProductos }}
     >
       {props.children}
     </TiendaContext.Provider>

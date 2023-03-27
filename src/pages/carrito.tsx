@@ -45,14 +45,13 @@ export default function Carrito() {
         <Row>
           <Col sm={8}>
             {productosSeleccionados
-              .map((p) => productos[p.id])
+              .map((p) => p && Object.values(productos).find((a) => a.id === p.id))
               .filter((p) =>
                 p?.nombre.toLowerCase().match(filtro.toLowerCase())
               )
               .map((p) => (
-                <>
-                  <ProductoView producto={p} key={p.id} props="alargado" />
-                </>
+                  
+                  p && <ProductoView producto={p} key={p.id} props="alargado" />
               ))}
           </Col>
           <Col sm={4}>
