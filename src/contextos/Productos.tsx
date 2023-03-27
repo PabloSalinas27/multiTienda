@@ -41,7 +41,7 @@ export const TiendaContextProvider =  (props: any) => {
   
   const [productos, setProductos] = useState<{[k: number]: Producto}>({});
   useEffect(() => {
-  axios.get("https://dsm23-b0103-default-rtdb.europe-west1.firebasedatabase.app/catalogo.json")
+  axios.get(import.meta.env.VITE_FIREBASE_URL + "/catalogo.json")
     .then((response) =>  setProductos(response.data))}, [])
   return (
     <TiendaContext.Provider
@@ -51,3 +51,7 @@ export const TiendaContextProvider =  (props: any) => {
     </TiendaContext.Provider>
   );
 };
+
+/*
+usuario: { contra: string, pedidos: [pedidos], esAdmin: boolean, datosPersonales: DatosReparto }
+*/
