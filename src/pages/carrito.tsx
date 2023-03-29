@@ -8,15 +8,12 @@ import { Link } from "react-router-dom";
 import ProductoView from "src/Components/ProductoView";
 import { useCarritoContext } from "src/contextos/Carrito";
 import { useFiltroContext } from "src/contextos/Filtro";
-import { usePedidosContext } from "src/contextos/Pedidos";
 import { useTiendaContext } from "src/contextos/Productos";
 import toast from "react-hot-toast";
 
 export default function Carrito() {
-  const { productosSeleccionados, setProductosSeleccionados } =
-    useCarritoContext();
+  const { productosSeleccionados } = useCarritoContext();
   const { productos } = useTiendaContext();
-  const { pedidos, setPedidos } = usePedidosContext();
   const [show, setShow] = useState(false);
   const total = productosSeleccionados.reduce(
     (acumulado, producto) =>
@@ -45,14 +42,16 @@ export default function Carrito() {
         <Row>
           <Col sm={8}>
             {productosSeleccionados
-              .map((p) => p && Object.values(productos).find((a) => a.id === p.id))
+              .map(
+                (p) => p && Object.values(productos).find((a) => a.id === p.id)
+              )
               .filter((p) =>
                 p?.nombre.toLowerCase().match(filtro.toLowerCase())
               )
-              .map((p) => (
-                  
+              .map(
+                (p) =>
                   p && <ProductoView producto={p} key={p.id} props="alargado" />
-              ))}
+              )}
           </Col>
           <Col sm={4}>
             <h2>Total</h2>
@@ -61,7 +60,7 @@ export default function Carrito() {
               onClick={() => {
                 productosSeleccionados.length
                   ? setShow(true)
-                  : toast.error("Seleccione al menos un producto")
+                  : toast.error("Seleccione al menos un producto");
               }}
             >
               Comprar

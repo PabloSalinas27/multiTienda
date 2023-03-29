@@ -1,20 +1,21 @@
 import { createContext, useContext, useState } from "react";
 
 type SesionContextType = {
-  token?: string;
-  setToken: (arg?: string | undefined) => void;
+  sesion?: { id: string; token: string };
+  setSesion: (sesion?: SesionContextType["sesion"]) => void;
 };
 
 const SesionContext = createContext<SesionContextType>({
-  setToken: () => {},
+  setSesion: () => {},
+  sesion: undefined,
 });
 
 export const useSesionContext = () => useContext(SesionContext);
 
-export const SelectedContextProvider = (props: any) => {
-  const [token, setToken] = useState<SesionContextType["token"]>();
+export const LoginContextProvider = (props: any) => {
+  const [sesion, setSesion] = useState<SesionContextType["sesion"]>();
   return (
-    <SesionContext.Provider value={{ token, setToken }}>
+    <SesionContext.Provider value={{ sesion, setSesion }}>
       {props.children}
     </SesionContext.Provider>
   );

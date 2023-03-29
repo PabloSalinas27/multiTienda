@@ -7,15 +7,17 @@ import Row from "react-bootstrap/esm/Row";
 export default function Marco() {
   return (
     <>
-      <Container className="col" style={{ minHeight: "70vh" }}>
+      <Container className="col" >
         <Row>
           <Header />
         </Row>
-        Componentea
-        <Row>
+        &nbsp;
+        <br></br>
+        &nbsp;
+        <Row style={{ minHeight: "70vh" }}>
           <Outlet />
         </Row>
-        <Row style={{marginTop: "auto"}}>
+        <Row style={{ marginTop: "auto" }}>
           <Footer />
         </Row>
       </Container>

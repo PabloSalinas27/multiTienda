@@ -10,23 +10,21 @@ import Pedidos from "./pages/pedidos";
 import { PedidosContextProvider } from "./contextos/Pedidos";
 import FormularioPedido from "./pages/formularioPedido";
 import Gracias from "./pages/gracias";
-// import Admin from "./pages/admin";
-// import Cars from "./pages/cars";
-// import DefaultLayout from "./pages/defaultLayout";
-// import GuestLayout from "./pages/guestLayout";
-// import Login from "./pages/login";
+import { LoginContextProvider } from "./contextos/Sesion";
 
 const CtxProvider = () => {
   return (
-    <TiendaContextProvider>
-      <PedidosContextProvider>
-        <CarritoContextProvider>
-          <FiltroContextProvider>
-            <Outlet />
-          </FiltroContextProvider>
-        </CarritoContextProvider>
-      </PedidosContextProvider>
-    </TiendaContextProvider>
+    <LoginContextProvider>
+      <TiendaContextProvider>
+        <PedidosContextProvider>
+          <CarritoContextProvider>
+            <FiltroContextProvider>
+              <Outlet />
+            </FiltroContextProvider>
+          </CarritoContextProvider>
+        </PedidosContextProvider>
+      </TiendaContextProvider>
+    </LoginContextProvider>
   );
 };
 const router = createBrowserRouter([
@@ -63,24 +61,10 @@ const router = createBrowserRouter([
           },
           {
             path: "/gracias",
-            element: <Gracias/>,
+            element: <Gracias />,
           },
-          //   {
-          //     path: "/admin",
-          //     element: <Admin />,
-          //   },
         ],
       },
-      //   {
-      //     path: "/",
-      //     element: <GuestLayout />,
-      //     children: [
-      //       {
-      //         path: "/login",
-      //         element: <Login />,
-      //       },
-      //     ],
-      //   },
       {
         path: "*",
         element: <Navigate to="/login" />,

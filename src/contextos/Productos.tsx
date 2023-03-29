@@ -4,8 +4,8 @@ import cerezas from "src/assets/cerezas.png";
 import manzana from "src/assets/manzana.jpeg";
 
 type Productos = {
-  productos: {[k: number]: Producto};
-  setProductos: (productos: {[k: number]: Producto}) => void;
+  productos: { [k: number]: Producto };
+  setProductos: (productos: { [k: number]: Producto }) => void;
 };
 export type Producto = {
   id: number;
@@ -15,7 +15,7 @@ export type Producto = {
   descuento?: number;
   foto?: string;
 };
-const mockProductos = { 
+const mockProductos = {
   3: {
     id: 3,
     nombre: "Cerezas",
@@ -37,16 +37,15 @@ const TiendaContext = createContext<Productos>({
   setProductos: () => {},
 });
 export const useTiendaContext = () => useContext(TiendaContext);
-export const TiendaContextProvider =  (props: any) => {
-  
-  const [productos, setProductos] = useState<{[k: number]: Producto}>({});
+export const TiendaContextProvider = (props: any) => {
+  const [productos, setProductos] = useState<{ [k: number]: Producto }>({});
   useEffect(() => {
-  axios.get(import.meta.env.VITE_FIREBASE_URL + "/catalogo.json")
-    .then((response) =>  setProductos(response.data))}, [])
+    axios
+      .get(import.meta.env.VITE_FIREBASE_URL + "/catalogo.json")
+      .then((response) => setProductos(response.data));
+  }, []);
   return (
-    <TiendaContext.Provider
-      value={{ productos, setProductos }}
-    >
+    <TiendaContext.Provider value={{ productos, setProductos }}>
       {props.children}
     </TiendaContext.Provider>
   );

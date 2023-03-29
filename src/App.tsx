@@ -1,4 +1,4 @@
-import  Container  from "react-bootstrap/Container";
+import Container from "react-bootstrap/Container";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
@@ -10,8 +10,8 @@ function App() {
   return (
     <>
       <Container style={{ minHeight: "100vh" }}>
-            <RouterProvider router={router}></RouterProvider>
-            <Toaster></Toaster>
+        <RouterProvider router={router}></RouterProvider>
+        <Toaster></Toaster>
       </Container>
     </>
   );

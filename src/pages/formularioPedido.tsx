@@ -9,9 +9,10 @@ import { useTiendaContext } from "src/contextos/Productos";
 export default function FormularioPedido() {
   const { productosSeleccionados, setProductosSeleccionados } =
     useCarritoContext();
-  const { pedidos, setPedidos } = usePedidosContext();
+  const { pedidos, addPedido } = usePedidosContext();
   const navigate = useNavigate();
-  const [formulario, setFormulario] = useState<DatosReparto>({
+  const pedidoArr = Object.values(pedidos).sort((a, b) => b.id - a.id);
+  const [formulario, setFormulario] = useState<DatosReparto>( pedidoArr[0]?.datosReparto || {
     nombre: "",
     apellidos: "",
     direccion: "",
@@ -24,15 +25,13 @@ export default function FormularioPedido() {
       toast.error("No hay productos seleccionados");
       return;
     }
-    pedidos.sort((a, b) => b.id - a.id);
     const nuevoPedido = {
-      id: (pedidos[0]?.id || 0) + 1,
+      id: (pedidoArr[0]?.id || 0) + 1,
       productos: productosSeleccionados,
       fecha: new Date().toISOString(),
       datosReparto: formulario,
     };
-    pedidos.push(nuevoPedido);
-    setPedidos([...pedidos]);
+    addPedido(nuevoPedido);
     setProductosSeleccionados([]);
     navigate("/gracias");
   };
@@ -61,6 +60,7 @@ export default function FormularioPedido() {
           <Form.Control
             required
             type="text"
+            value={formulario.nombre}
             placeholder="Nombre"
             onChange={(e) =>
               setFormulario({ ...formulario, nombre: e.target.value })
@@ -72,6 +72,7 @@ export default function FormularioPedido() {
           <Form.Label>Apellidos</Form.Label>
           <Form.Control
             required
+            value={formulario.apellidos}
             type="text"
             placeholder="Apellidos"
             onChange={(e) =>
@@ -86,6 +87,7 @@ export default function FormularioPedido() {
             <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
             <Form.Control
               type="email"
+              value={formulario.correoElectronico}
               placeholder="Email"
               aria-describedby="inputGroupPrepend"
               required
@@ -109,6 +111,7 @@ export default function FormularioPedido() {
             type="text"
             placeholder="Direccion"
             required
+            value={formulario.direccion}
             onChange={(e) =>
               setFormulario({ ...formulario, direccion: e.target.value })
             }
@@ -123,6 +126,7 @@ export default function FormularioPedido() {
             type="text"
             placeholder="Ciudad"
             required
+            value={formulario.ciudad}
             onChange={(e) =>
               setFormulario({ ...formulario, ciudad: e.target.value })
             }
@@ -137,6 +141,7 @@ export default function FormularioPedido() {
             type="number"
             placeholder="Codigo postal"
             required
+            value={formulario.codigoPostal}
             onChange={(e) =>
               setFormulario({
                 ...formulario,

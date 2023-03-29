@@ -1,59 +1,63 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/esm/Modal";
+import Modal from "react-bootstrap/Modal";
+import Card from "react-bootstrap/Card";
 import { toast } from "react-hot-toast";
 import { usePedidosContext } from "src/contextos/Pedidos";
 import { useTiendaContext } from "src/contextos/Productos";
 
 export default function Pedidos() {
-  const { pedidos, setPedidos } = usePedidosContext();
+  const { pedidos, deletePedido } = usePedidosContext();
   const [show, setShow] = useState(false);
-  const [id, setId] = useState(-1);
+  const [id, setId] = useState("");
   const { productos } = useTiendaContext();
-  const handleBorrarPedido = (id: number) => {
-    if (id === -1) {
+  const handleBorrarPedido = (id: string) => {
+    if (pedidos[id]  === undefined) {
       toast.error("No se ha seleccionado ningun pedido");
       return;
     }
-    const nuevosPedidos = pedidos.filter((p) => p.id !== id);
-    setPedidos(nuevosPedidos);
+    deletePedido(id);
     setShow(false);
   };
-  const pedidoView = pedidos.map((p) => {
+  const pedidoView = Object.entries(pedidos).map(([id, p]) => {
     return (
-      <div key={p.id}>
-        <h2>Numero de pedido: {p.id}</h2>
-        <h2>Fecha del pedido: {new Date(p.fecha).toLocaleDateString()}</h2>
-        <div>
-          <a>Repartir a: </a>
-          <a>
-            {p.datosReparto.direccion}, {p.datosReparto.ciudad} 
-             {` (CP: ${p.datosReparto.codigoPostal})`}
-          </a>
-        </div>
-        <div>
-          <a>Contacto: </a>
-          <a>{p.datosReparto.correoElectronico + " ("}</a>
-          <a>{p.datosReparto.apellidos},</a>
-          <a>{" " + p.datosReparto.nombre + ")"}</a>
-        </div>
+      <Card key={p.id}>
+        <Card.Title>
+          <h3>Numero de pedido: {p.id}</h3>
+          <h2>Fecha del pedido: {new Date(p.fecha).toLocaleDateString()}</h2>
+          <div>
+            <i>Repartir a: </i>
+            <i>
+              {p.datosReparto.direccion}, {p.datosReparto.ciudad}
+              {` (CP: ${p.datosReparto.codigoPostal})`}
+            </i>
+          </div>
+          <div>
+            <i>Contacto: </i>
+            <i>{p.datosReparto.correoElectronico + " ("}</i>
+            <i>{p.datosReparto.apellidos},</i>
+            <i>{" " + p.datosReparto.nombre + ")"}</i>
+          </div>
+        </Card.Title>
         {p.productos.map((prod) => {
           return (
             <div key={p.id.toString() + prod.id.toString()}>
-              <h2>{productos[prod.id]?.nombre || "Producto no encontrado"}</h2>
-              <h2>{prod.cantidad}</h2>
+              <h4>{productos[prod.id]?.nombre || "Producto no encontrado"}</h4>
+              <h4>{prod.cantidad}</h4>
             </div>
           );
         })}
         <Button
+          variant="danger"
+          style={{ maxWidth: "20em" }}
           onClick={() => {
-            setId(p.id);
+            setId(id);
             setShow(true);
           }}
         >
           Borrar Pedido
         </Button>
-      </div>
+      </Card>
     );
   });
   return (
