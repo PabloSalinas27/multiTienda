@@ -41,7 +41,6 @@ export default function FormularioPedido() {
     event.preventDefault();
     event.stopPropagation();
     const form = event.currentTarget;
-    console.log(console.log(form));
     if (form.checkValidity() === true) {
       handleComprar();
     }

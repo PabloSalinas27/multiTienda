@@ -33,7 +33,6 @@ export const PedidosContextProvider = (props: any) => {
   const { sesion } = useSesionContext();
   const [pedidos, setPedidos] = useState<Pedidos["pedidos"]>({});
   useEffect(() => {
-    console.log(sesion);
     if (sesion) {
       axios
         .get(
@@ -67,7 +66,6 @@ export const PedidosContextProvider = (props: any) => {
       )
       .then((response) => {
         setPedidos({...pedidos, [response.data.name]: pedidoNuevo});
-        console.log(response);
         toast.success("El pedido se ha insertado en la base de datos");
       })
       .catch((error) => {
@@ -84,7 +82,6 @@ export const PedidosContextProvider = (props: any) => {
 
         const { [idPedido]: _, ...resto } = pedidos;
         setPedidos(resto);
-        console.log(response);
         toast.success("El pedido se ha eliminado de la base de datos");
       })
       .catch((error) => {

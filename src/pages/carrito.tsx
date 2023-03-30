@@ -10,10 +10,12 @@ import { useCarritoContext } from "src/contextos/Carrito";
 import { useFiltroContext } from "src/contextos/Filtro";
 import { useTiendaContext } from "src/contextos/Productos";
 import toast from "react-hot-toast";
+import { useSesionContext } from "src/contextos/Sesion";
 
 export default function Carrito() {
   const { productosSeleccionados } = useCarritoContext();
   const { productos } = useTiendaContext();
+  const { sesion } = useSesionContext();
   const [show, setShow] = useState(false);
   const total = productosSeleccionados.reduce(
     (acumulado, producto) =>
@@ -58,9 +60,15 @@ export default function Carrito() {
             <h2>{total}€</h2>
             <Button
               onClick={() => {
-                productosSeleccionados.length
-                  ? setShow(true)
-                  : toast.error("Seleccione al menos un producto");
+                if(!sesion){
+                  toast.error("Inicie sesion para comprar")
+                  return
+                }
+                if(!productosSeleccionados.length){
+                  toast.error("Seleccione al menos un producto")
+                  return
+                }
+                setShow(true)
               }}
             >
               Comprar
