@@ -7,6 +7,17 @@ import Button from "react-bootstrap/esm/Button";
 import { Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+type requestError = {
+  code: number,
+  message: string,
+  errors: error[]
+}
+type error = {
+  message: string,
+  domain: string,
+  reason: string
+}
+
 export default function Login() {
   const { sesion, setSesion } = useSesionContext();
   const [email, setEmail] = useState("");
@@ -29,9 +40,9 @@ export default function Login() {
       setSesion({ id: res.data.localId, token: res.data.idToken });
       toast.success(`El usuario se ha ${registro ? "creado" : "logueado"} correctamente`);
       navigate("/");
-    } catch {
-      console.log("error");
-      toast.error("Ha ocurrido un error");
+    } catch (e: any){
+      const err = e.response.data.error as requestError;
+      toast.error(err.errors.map((a) => a.message).join(", "));
     }
   };
 
@@ -51,7 +62,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="text"
-                placeholder="Nombre de usuario"
+                placeholder="Nombre de usuario (email)"
               />
               <input
                 className="form-control me-2"
@@ -59,7 +70,7 @@ export default function Login() {
                 type="password"
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
-                placeholder="Contraseña"
+                placeholder="Contraseña (al menos 6 caracteres)"
               />
               <Button type="submit">{registro? "Registrarse" : "Iniciar sesión"}</Button>
               <Button onClick={() => setRegistro(!registro)} variant="outline-info">{!registro? "Registrarse" : "Iniciar sesión"}</Button>
